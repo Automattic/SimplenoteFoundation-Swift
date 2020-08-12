@@ -3,9 +3,9 @@ import Foundation
 
 // MARK: - Changeset: Sections
 //
-struct ResultsSectionsChangeset {
-    private(set) var deleted = IndexSet()
-    private(set) var inserted = IndexSet()
+public struct ResultsSectionsChangeset {
+    private(set) public var deleted = IndexSet()
+    private(set) public var inserted = IndexSet()
 }
 
 
@@ -29,7 +29,7 @@ extension ResultsSectionsChangeset {
 
     /// Why? Because displaying data coming from multiple ResultsController onScreen... just requires us to adjust sectionIndexes
     ///
-    func transposed(toSection section: Int) -> ResultsSectionsChangeset {
+    public func transposed(toSection section: Int) -> ResultsSectionsChangeset {
         let newDeleted = deleted.map { _ in section }
         let newInserted = inserted.map { _ in section }
 

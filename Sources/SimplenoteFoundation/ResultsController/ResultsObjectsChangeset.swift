@@ -3,11 +3,11 @@ import Foundation
 
 // MARK: - Changeset: Objects
 //
-struct ResultsObjectsChangeset {
-    private(set) var deleted    : [IndexPath]
-    private(set) var inserted   : [IndexPath]
-    private(set) var moved      : [(from: IndexPath, to: IndexPath)]
-    private(set) var updated    : [IndexPath]
+public struct ResultsObjectsChangeset {
+    private(set) public var deleted    : [IndexPath]
+    private(set) public var inserted   : [IndexPath]
+    private(set) public var moved      : [(from: IndexPath, to: IndexPath)]
+    private(set) public var updated    : [IndexPath]
 
     init(deleted: [IndexPath] = [], inserted: [IndexPath] = [], moved: [(from: IndexPath, to: IndexPath)] = [], updated: [IndexPath] = []) {
         self.deleted = deleted
@@ -46,7 +46,7 @@ extension ResultsObjectsChangeset {
 
     /// Why? Because displaying data coming from multiple ResultsController onScreen... just requires us to adjust sectionIndexes
     ///
-    func transposed(toSection section: Int) -> ResultsObjectsChangeset {
+    public func transposed(toSection section: Int) -> ResultsObjectsChangeset {
         let newDeleted  = deleted.map { $0.transpose(toSection: section) }
         let newInserted = inserted.map { $0.transpose(toSection: section) }
         let newUpdated  = updated.map { $0.transpose(toSection: section) }
