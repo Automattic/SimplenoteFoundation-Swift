@@ -3,6 +3,7 @@
 
 import PackageDescription
 
+
 let package = Package(
     name: "SimplenoteFoundation",
     platforms: [.macOS(.v10_13),
@@ -14,12 +15,10 @@ let package = Package(
     ],
     dependencies: [],
     targets: [
-        .target(
-            name: "SimplenoteFoundation",
-            dependencies: []),
-        .testTarget(
-            name: "SimplenoteFoundationTests",
-            dependencies: ["SimplenoteFoundation"]),
+        .target(name: "SimplenoteFoundation",
+                path: "Sources/SimplenoteFoundation"),
+        .testTarget(name: "SimplenoteFoundationTests",
+                    dependencies: ["SimplenoteFoundation"])
     ],
     swiftLanguageVersions: [.v5]
 )
