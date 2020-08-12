@@ -9,7 +9,7 @@ public struct ResultsObjectsChangeset {
     private(set) public var moved      : [(from: IndexPath, to: IndexPath)]
     private(set) public var updated    : [IndexPath]
 
-    init(deleted: [IndexPath] = [], inserted: [IndexPath] = [], moved: [(from: IndexPath, to: IndexPath)] = [], updated: [IndexPath] = []) {
+    public init(deleted: [IndexPath] = [], inserted: [IndexPath] = [], moved: [(from: IndexPath, to: IndexPath)] = [], updated: [IndexPath] = []) {
         self.deleted = deleted
         self.inserted = inserted
         self.moved = moved
