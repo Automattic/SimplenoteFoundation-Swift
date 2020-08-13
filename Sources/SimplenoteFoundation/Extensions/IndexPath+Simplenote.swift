@@ -1,9 +1,9 @@
 import Foundation
 
-#if canImport(UIKit)
-    import UIKit
-#elseif canImport(AppKit)
-    import AppKit
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
 #endif
 
 
@@ -12,11 +12,11 @@ import Foundation
 extension IndexPath {
 
     func transpose(toSection newSection: Int) -> IndexPath {
-        #if os(iOS)
-            return IndexPath(row: row, section: newSection)
-        #elseif os(macOS)
-            return IndexPath(item: item, section: newSection)
-        #endif
+    #if os(iOS)
+        return IndexPath(row: row, section: newSection)
+    #elseif os(macOS)
+        return IndexPath(item: item, section: newSection)
+    #endif
     }
 
     #if os(macOS)
