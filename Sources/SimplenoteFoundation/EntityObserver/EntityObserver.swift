@@ -4,7 +4,7 @@ import CoreData
 
 // MARK: - EntityObserverDelegate
 //
-protocol EntityObserverDelegate: class {
+public protocol EntityObserverDelegate: class {
     func entityObserver(_ observer: EntityObserver, didObserveChanges identifiers: Set<NSManagedObjectID>)
 }
 
@@ -12,7 +12,7 @@ protocol EntityObserverDelegate: class {
 // MARK: - EntityObserver
 //         Listens for changes applied over a set of ObjectIDs, and invokes a closure whenever any of the entities gets updated.
 //
-class EntityObserver {
+public class EntityObserver {
 
     /// NotificationCenter Observer Token.
     ///
@@ -20,15 +20,15 @@ class EntityObserver {
 
     /// Identifiers of the objects being observed
     ///
-    let observedIdentifiers: [NSManagedObjectID]
+    public let observedIdentifiers: [NSManagedObjectID]
 
     /// Observed Change Types
     ///
-    var changeTypes = [NSUpdatedObjectsKey, NSRefreshedObjectsKey]
+    public var changeTypes = [NSUpdatedObjectsKey, NSRefreshedObjectsKey]
 
     /// Closure to be invoked whenever any of the observed entities gets updated
     ///
-    weak var delegate: EntityObserverDelegate?
+    public weak var delegate: EntityObserverDelegate?
 
 
     /// Designed Initialier
@@ -37,7 +37,7 @@ class EntityObserver {
     ///     - context: NSManagedObjectContext in which we should listen for changes
     ///     - identifiers: NSManagedObjectID(s) of the entities that should be observed
     ///
-    init(context: NSManagedObjectContext, identifiers: [NSManagedObjectID]) {
+    public init(context: NSManagedObjectContext, identifiers: [NSManagedObjectID]) {
         observedIdentifiers = identifiers
         notificationsToken = startListeningForNotifications(in: context)
     }
@@ -48,7 +48,7 @@ class EntityObserver {
     ///     - context: NSManagedObjectContext in which we should listen for changes
     ///     - objects: NSManagedObject(s) that should be observed
     ///
-    convenience init(context: NSManagedObjectContext, objects: [NSManagedObject]) {
+    public convenience init(context: NSManagedObjectContext, objects: [NSManagedObject]) {
         let identifiers = objects.map { $0.objectID }
         self.init(context: context, identifiers: identifiers)
     }
@@ -59,7 +59,7 @@ class EntityObserver {
     ///     - context: NSManagedObjectContext in which we should listen for changes
     ///     - object: NSManagedObject that should be observed for changes
     ///
-    convenience init(context: NSManagedObjectContext, object: NSManagedObject) {
+    public convenience init(context: NSManagedObjectContext, object: NSManagedObject) {
         self.init(context: context, identifiers: [object.objectID])
     }
 }
