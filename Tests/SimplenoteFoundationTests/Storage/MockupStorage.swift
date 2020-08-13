@@ -78,7 +78,7 @@ extension MockupStorageManager {
     ///
     var managedModel: NSManagedObjectModel {
         let noteDescriptor = NSEntityDescription()
-        noteDescriptor.name = Note.classNameWithoutNamespaces
+        noteDescriptor.name = Note.entityName
         noteDescriptor.managedObjectClassName = NSStringFromClass(Note.classForCoder())
         noteDescriptor.properties = [
             NSAttributeDescription(property: #selector(getter: Note.simperiumKey), type: .stringAttributeType),
@@ -88,7 +88,7 @@ extension MockupStorageManager {
         ]
 
         let tagDescriptor = NSEntityDescription()
-        tagDescriptor.name = Tag.classNameWithoutNamespaces
+        tagDescriptor.name = Tag.entityName
         tagDescriptor.managedObjectClassName = NSStringFromClass(Tag.classForCoder())
         tagDescriptor.properties = [
             NSAttributeDescription(property: #selector(getter: Tag.simperiumKey), type: .stringAttributeType),
