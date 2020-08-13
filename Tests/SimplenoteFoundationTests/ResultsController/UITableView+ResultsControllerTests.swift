@@ -3,9 +3,9 @@ import XCTest
 import SimplenoteFoundation
 
 
-/// StoresManager Unit Tests
-///
-class ResultsControllerUIKitTests: XCTestCase {
+// MARK: - UITableView+ResultsController Tests
+//
+class UITableViewResultsControllerTests: XCTestCase {
 
     /// Mockup StorageManager
     ///
