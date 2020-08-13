@@ -4,12 +4,12 @@ import CoreData
 
 // MARK: - Aliases
 //
-typealias ResultsSectionInfo = NSFetchedResultsSectionInfo
+public typealias ResultsSectionInfo = NSFetchedResultsSectionInfo
 
 
 // MARK: - ResultsController
 //
-class ResultsController<T: NSManagedObject> {
+public class ResultsController<T: NSManagedObject> {
 
     /// FetchedResultsController Delegate Wrapper.
     ///
@@ -32,7 +32,7 @@ class ResultsController<T: NSManagedObject> {
 
     /// Limits the number of entries to retrieve
     ///
-    var limit: Int? {
+    public var limit: Int? {
         get {
             fetchRequest.fetchLimit
         }
@@ -43,7 +43,7 @@ class ResultsController<T: NSManagedObject> {
 
     /// Filtering Predicate to be applied to the Results.
     ///
-    var predicate: NSPredicate? {
+    public var predicate: NSPredicate? {
         get {
             fetchRequest.predicate
         }
@@ -54,7 +54,7 @@ class ResultsController<T: NSManagedObject> {
 
     /// Results's Sort Descriptor.
     ///
-    var sortDescriptors: [NSSortDescriptor]? {
+    public var sortDescriptors: [NSSortDescriptor]? {
         get {
             fetchRequest.sortDescriptors
         }
@@ -65,7 +65,7 @@ class ResultsController<T: NSManagedObject> {
 
     /// Closure to be executed after the results are changed.
     ///
-    var onDidChangeContent: ((_ sections: ResultsSectionsChangeset, _ objects: ResultsObjectsChangeset) -> Void)?
+    public var onDidChangeContent: ((_ sections: ResultsSectionsChangeset, _ objects: ResultsObjectsChangeset) -> Void)?
 
 
     /// Designated Initializer
@@ -75,11 +75,11 @@ class ResultsController<T: NSManagedObject> {
     ///  - predicate: Filtering NSPredicate
     ///  - sortDescriptors: Array of NSSortDescriptors which should be applied to the fetched results
     ///
-    init(viewContext: NSManagedObjectContext,
-         sectionNameKeyPath: String? = nil,
-         matching predicate: NSPredicate? = nil,
-         sortedBy sortDescriptors: [NSSortDescriptor],
-         limit: Int = .zero) {
+    public init(viewContext: NSManagedObjectContext,
+                sectionNameKeyPath: String? = nil,
+                matching predicate: NSPredicate? = nil,
+                sortedBy sortDescriptors: [NSSortDescriptor],
+                limit: Int = .zero) {
 
         assert(viewContext.concurrencyType == .mainQueueConcurrencyType)
 
@@ -107,38 +107,38 @@ extension ResultsController {
 
     /// Executes the fetch request on the store to get objects.
     ///
-    func performFetch() throws {
+    public func performFetch() throws {
         resetPendingChangesets()
         try resultsController.performFetch()
     }
 
     /// Returns the Object at the specified IndexPath
     ///
-    func object(at indexPath: IndexPath) -> T {
+    public func object(at indexPath: IndexPath) -> T {
         resultsController.object(at: indexPath)
     }
 
     /// Returns the IndexPath for a given Object
     ///
-    func indexPath(forObject object: T) -> IndexPath? {
+    public func indexPath(forObject object: T) -> IndexPath? {
         resultsController.indexPath(forObject: object)
     }
 
     /// Returns the number of fetched objects.
     ///
-    var numberOfObjects: Int {
+    public var numberOfObjects: Int {
         resultsController.fetchedObjects?.count ?? .zero
     }
 
     /// Returns an array of all of the Fetched Objects.
     ///
-    var fetchedObjects: [T] {
+    public var fetchedObjects: [T] {
         resultsController.fetchedObjects ?? []
     }
 
     /// Returns an array of SectionInfo Entitites.
     ///
-    var sections: [ResultsSectionInfo] {
+    public var sections: [ResultsSectionInfo] {
         resultsController.sections ?? []
     }
 }
