@@ -5,7 +5,6 @@ import UIKit
 
 // MARK: - ResultsTableAnimations: Defines the Animations to be applied during Table Update(s)
 //
-<<<<<<< HEAD
 public struct ResultsTableAnimations {
 
     /// TableViewRowAnimation to be applied during Delete OP's.
@@ -27,29 +26,6 @@ public struct ResultsTableAnimations {
     /// Standard ResultsTableAnimations Settings
     ///
     public static let standard = ResultsTableAnimations()
-=======
-struct ResultsTableAnimations {
-
-    /// TableViewRowAnimation to be applied during Delete OP's.
-    ///
-    let delete: UITableView.RowAnimation = .fade
-
-    /// TableViewRowAnimation to be applied during Insert OP's.
-    ///
-    let insert: UITableView.RowAnimation = .fade
-
-    /// TableViewRowAnimation to be applied during Move OP's.
-    ///
-    let move: UITableView.RowAnimation = .fade
-
-    /// TableViewRowAnimation to be applied during Update OP's.
-    ///
-    let update: UITableView.RowAnimation = .fade
-
-    /// Standard ResultsTableAnimations Settings
-    ///
-    static let standard = ResultsTableAnimations()
->>>>>>> origin/main
 }
 
 
@@ -57,11 +33,7 @@ struct ResultsTableAnimations {
 //
 extension UITableView {
 
-<<<<<<< HEAD
     public func performBatchChanges(sectionsChangeset: ResultsSectionsChangeset, objectsChangeset: ResultsObjectsChangeset, onCompletion: ((Bool) -> Void)? = nil) {
-=======
-    func performBatchChanges(sectionsChangeset: ResultsSectionsChangeset, objectsChangeset: ResultsObjectsChangeset, onCompletion: ((Bool) -> Void)? = nil) {
->>>>>>> origin/main
         performBatchUpdates({
             self.performChanges(sectionsChangeset: sectionsChangeset, objectsChangeset: objectsChangeset)
         }, completion: onCompletion)
@@ -70,11 +42,7 @@ extension UITableView {
     /// This API applies Section and Object Changesets over the receiver. Based on WWDC 2020 @ Labs Recommendations
     /// - Note: This should be done during onDidChangeContent so that we're never in the middle of a NSManagedObjectContext.save()
     ///
-<<<<<<< HEAD
     public func performChanges(sectionsChangeset: ResultsSectionsChangeset, objectsChangeset: ResultsObjectsChangeset, animations: ResultsTableAnimations = .standard) {
-=======
-    func performChanges(sectionsChangeset: ResultsSectionsChangeset, objectsChangeset: ResultsObjectsChangeset, animations: ResultsTableAnimations = .standard) {
->>>>>>> origin/main
         // [Step 1] Structural Changes: Delete OP(s)
         if !objectsChangeset.deleted.isEmpty {
             deleteRows(at: objectsChangeset.deleted, with: animations.delete)
