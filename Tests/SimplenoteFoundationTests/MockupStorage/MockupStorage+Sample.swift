@@ -10,8 +10,8 @@ extension MockupStorageManager {
     /// Inserts a new (Sample) Note into the receiver's Main MOC
     ///
     @discardableResult
-    func insertSampleNote(contents: String = "") -> Note {
-        guard let note = NSEntityDescription.insertNewObject(forEntityName: Note.entityName, into: viewContext) as? Note else {
+    func insertSampleNote(contents: String = "") -> MockupNote {
+        guard let note = NSEntityDescription.insertNewObject(forEntityName: MockupNote.entityName, into: viewContext) as? MockupNote else {
             fatalError()
         }
 
@@ -25,8 +25,8 @@ extension MockupStorageManager {
     /// Inserts a new (Sample) Tag into the receiver's Main MOC
     ///
     @discardableResult
-    func insertSampleTag(name: String = "") -> Tag {
-        guard let tag = NSEntityDescription.insertNewObject(forEntityName: Tag.entityName, into: viewContext) as? Tag else {
+    func insertSampleTag(name: String = "") -> MockupTag {
+        guard let tag = NSEntityDescription.insertNewObject(forEntityName: MockupTag.entityName, into: viewContext) as? MockupTag else {
             fatalError()
         }
 

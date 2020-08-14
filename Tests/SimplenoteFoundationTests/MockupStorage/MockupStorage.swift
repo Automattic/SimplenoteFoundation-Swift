@@ -78,21 +78,21 @@ extension MockupStorageManager {
     ///
     var managedModel: NSManagedObjectModel {
         let noteDescriptor = NSEntityDescription()
-        noteDescriptor.name = Note.entityName
-        noteDescriptor.managedObjectClassName = NSStringFromClass(Note.classForCoder())
+        noteDescriptor.name = MockupNote.entityName
+        noteDescriptor.managedObjectClassName = NSStringFromClass(MockupNote.classForCoder())
         noteDescriptor.properties = [
-            NSAttributeDescription(property: #selector(getter: Note.simperiumKey), type: .stringAttributeType),
-            NSAttributeDescription(property: #selector(getter: Note.content), type: .stringAttributeType),
-            NSAttributeDescription(property: #selector(getter: Note.creationDate), type: .dateAttributeType),
-            NSAttributeDescription(property: #selector(getter: Note.modificationDate), type: .dateAttributeType),
+            NSAttributeDescription(property: #selector(getter: MockupNote.simperiumKey), type: .stringAttributeType),
+            NSAttributeDescription(property: #selector(getter: MockupNote.content), type: .stringAttributeType),
+            NSAttributeDescription(property: #selector(getter: MockupNote.creationDate), type: .dateAttributeType),
+            NSAttributeDescription(property: #selector(getter: MockupNote.modificationDate), type: .dateAttributeType),
         ]
 
         let tagDescriptor = NSEntityDescription()
-        tagDescriptor.name = Tag.entityName
-        tagDescriptor.managedObjectClassName = NSStringFromClass(Tag.classForCoder())
+        tagDescriptor.name = MockupTag.entityName
+        tagDescriptor.managedObjectClassName = NSStringFromClass(MockupTag.classForCoder())
         tagDescriptor.properties = [
-            NSAttributeDescription(property: #selector(getter: Tag.simperiumKey), type: .stringAttributeType),
-            NSAttributeDescription(property: #selector(getter: Tag.name), type: .stringAttributeType)
+            NSAttributeDescription(property: #selector(getter: MockupTag.simperiumKey), type: .stringAttributeType),
+            NSAttributeDescription(property: #selector(getter: MockupTag.name), type: .stringAttributeType)
         ]
 
         let model = NSManagedObjectModel()

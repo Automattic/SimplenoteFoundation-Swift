@@ -5,7 +5,7 @@ import CoreData
 // MARK: - Tag Mockup Entity
 //
 @objcMembers
-class Tag: NSManagedObject {
+class MockupTag: NSManagedObject {
 
     @NSManaged
     var simperiumKey: String!

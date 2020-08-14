@@ -17,7 +17,7 @@ class UITableViewResultsControllerTests: XCTestCase {
 
     /// Sample ResultsController
     ///
-    private var resultsController: ResultsController<Note>!
+    private var resultsController: ResultsController<MockupNote>!
 
 
     // MARK: - Overridden Methods
@@ -29,9 +29,9 @@ class UITableViewResultsControllerTests: XCTestCase {
         resultsController = {
             let viewContext = storageManager.persistentContainer.viewContext
             let sectionNameKeyPath = "content"
-            let descriptor = NSSortDescriptor(keyPath: \Note.content, ascending: false)
+            let descriptor = NSSortDescriptor(keyPath: \MockupNote.content, ascending: false)
 
-            return ResultsController<Note>(viewContext: viewContext, sectionNameKeyPath: sectionNameKeyPath, sortedBy: [descriptor])
+            return ResultsController<MockupNote>(viewContext: viewContext, sectionNameKeyPath: sectionNameKeyPath, sortedBy: [descriptor])
         }()
 
         resultsController.onDidChangeContent = { [weak self] (sectionsChangeset, objectsChangeset) in

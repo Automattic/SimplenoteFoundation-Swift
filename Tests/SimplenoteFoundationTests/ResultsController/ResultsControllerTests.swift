@@ -24,7 +24,7 @@ class ResultsControllerTests: XCTestCase {
     /// Returns a sample NSSortDescriptor
     ///
     private var sampleSortDescriptor: NSSortDescriptor {
-        NSSortDescriptor(key: #selector(getter: Note.content).description, ascending: true)
+        NSSortDescriptor(key: #selector(getter: MockupNote.content).description, ascending: true)
     }
 
 
@@ -39,7 +39,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that the Results Controller has an Empty Section right after the Fetch OP is performed.
     ///
     func testResultsControllerStartsEmptySectionAfterPerformingFetch() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         XCTAssertEqual(resultsController.sections.count, 0)
 
         try? resultsController.performFetch()
@@ -54,7 +54,7 @@ class ResultsControllerTests: XCTestCase {
         storage.insertSampleNote()
         try? viewContext.save()
 
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
         XCTAssertEqual(resultsController.sections.count, 1)
@@ -65,7 +65,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that ResultsController does pick up entities inserted after being instantiated.
     ///
     func testResultsControllerPicksUpEntitiesInsertedAfterInstantiation() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
         storage.insertSampleNote()
@@ -79,7 +79,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that `sectionNameKeyPath` effectively causes the ResultsController to produce multiple sections, based on the grouping parameter.
     ///
     func testResultsControllerGroupSectionsBySectionNameKeypath() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext,
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext,
                                                         sectionNameKeyPath: sampleSectionNameKeyPath,
                                                         sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
@@ -103,7 +103,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that `object(at indexPath:)` effectively returns the expected Entity.
     ///
     func testObjectAtIndexPathReturnsExpectedEntity() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext,
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext,
                                                         sectionNameKeyPath: sampleSectionNameKeyPath,
                                                         sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
@@ -122,7 +122,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that `onDidChangeContent` is effectively called *after* the results are altered.
     ///
     func testOnDidChangeContentIsEffectivelyCalledAfterChangesArePerformed() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
         let expectation = self.expectation(description: "onDidChange")
@@ -140,7 +140,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that `onDidChangeContent` is called  with the inserted objects changesets
     ///
     func testOnDidChangeObjectIsEffectivelyCalledOnceNewObjectsAreInserted() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
         let expectation = self.expectation(description: "onDidChange")
@@ -164,7 +164,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that `onDidChangeContent` is called whenever new sections are added.
     ///
     func testOnDidChangeSectionIsCalledWheneverNewSectionsAreAdded() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext,
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext,
                                                         sectionNameKeyPath: sampleSectionNameKeyPath,
                                                         sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
@@ -186,10 +186,10 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that `fetchedObjects` effectively  returns all of the objects that are expected to be available.
     ///
     func testFetchedObjectsEffectivelyReturnsAvailableEntities() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
-        var expected = [String: Note]()
+        var expected = [String: MockupNote]()
 
         for content in [ "first", "second", "third" ] {
             let note = storage.insertSampleNote()
@@ -208,7 +208,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that `numberOfObjects` returns zero, when the collection is empty.
     ///
     func testEmptyStorageReturnsZeroNumberOfObjects() {
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
         XCTAssertEqual(resultsController.numberOfObjects, 0)
@@ -221,7 +221,7 @@ class ResultsControllerTests: XCTestCase {
         storage.insertSampleNote()
         try? viewContext.save()
 
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
         XCTAssertEqual(resultsController.numberOfObjects, 1)
@@ -243,7 +243,7 @@ class ResultsControllerTests: XCTestCase {
 
         try? viewContext.save()
 
-        let resultsController = ResultsController<Note>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
+        let resultsController = ResultsController<MockupNote>(viewContext: viewContext, sortedBy: [sampleSortDescriptor])
         try? resultsController.performFetch()
 
         XCTAssertEqual(resultsController.numberOfObjects, ascendingSampleContent.count)
@@ -252,7 +252,7 @@ class ResultsControllerTests: XCTestCase {
             XCTAssertEqual(note.content, ascendingSampleContent[index])
         }
 
-        let reversedSortDescriptor = NSSortDescriptor(key: #selector(getter: Note.content).description, ascending: false)
+        let reversedSortDescriptor = NSSortDescriptor(key: #selector(getter: MockupNote.content).description, ascending: false)
 
         resultsController.sortDescriptors = [ reversedSortDescriptor ]
         try? resultsController.performFetch()
