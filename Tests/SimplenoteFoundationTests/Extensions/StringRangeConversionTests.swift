@@ -35,7 +35,7 @@ class StringRangeConversionTests: XCTestCase {
 
         for location in Int.zero ..<  text.count {
             let index = text.index(text.startIndex, offsetBy: location)
-            XCTAssertEqual(text.transportIndex(index, to: text, in: fullRange), index)
+            XCTAssertEqual(text.transportIndex(index, to: fullRange, in: text), index)
         }
     }
 
@@ -53,7 +53,7 @@ class StringRangeConversionTests: XCTestCase {
             let unmappedIndex = text.index(text.startIndex, offsetBy: location + lhs.count)
             let expectedIndex = substring.index(substring.startIndex, offsetBy: location)
 
-            XCTAssertEqual(text.transportIndex(unmappedIndex, to: substring, in: substringRange), expectedIndex)
+            XCTAssertEqual(text.transportIndex(unmappedIndex, to: substringRange, in: substring), expectedIndex)
         }
     }
 
