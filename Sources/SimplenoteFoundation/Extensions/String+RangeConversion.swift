@@ -18,7 +18,7 @@ extension String {
 
     /// Maps a `String.Index` in the receiver's coordinates into coordinates valid for the specified Substring, in the target Range
     ///
-    public func transportIndex(_ index: String.Index, to range: Range<String.Index>, in substring: String) -> String.Index? {
+    public func transportIndex(_ index: String.Index, to range: Range<String.Index>, in substring: String) -> String.Index {
         let locationInSubstring = distance(from: startIndex, to: index) - distance(from: startIndex, to: range.lowerBound)
         return substring.index(substring.startIndex, offsetBy: locationInSubstring)
     }
