@@ -9,19 +9,18 @@ class StringRangeConversionTests: XCTestCase {
     /// Verifies that `indexFromLocation` converts an UTF16 Location into a valid String.Index
     ///
     func testIndexFromLocationProperlyConvertsUTF16RangeIntoStringIndex() {
-        let samples: [(NSString, String, String)] = [
+        let samples: [(String, String, String)] = [
             ("Hello World!", "World", "Hello "),
             ("Hello 🌍!", "🌍", "Hello "),
             ("Hello 🇮🇳!", "🇮🇳", "Hello "),
             ("Hello 🇮🇳 🌍!", "🌍", "Hello 🇮🇳 ")
         ]
 
-        for (nsString, wordToCapture, expectedPrefix) in samples {
-            let string: String = nsString as String
-            let nsRange = nsString.range(of: wordToCapture)
-            let index = string.indexFromLocation(nsRange.location)!
+        for (text, wordToCapture, expectedPrefix) in samples {
+            let nsRange = text.nsString.range(of: wordToCapture)
+            let index = text.indexFromLocation(nsRange.location)!
 
-            let wordCaptured = String(string.prefix(upTo: index))
+            let wordCaptured = String(text.prefix(upTo: index))
 
             XCTAssertEqual(expectedPrefix, wordCaptured)
         }
@@ -42,18 +41,18 @@ class StringRangeConversionTests: XCTestCase {
     /// Verifies that `transportIndex(_:to:in:)` converts the specified Absolute Location into a Relative Location, with regards of a specified range
     ///
     func testTransportIndexReturnsTheExpectedLocationWhenTheRangeIsNotTheFullString() {
-        let lhs = "this 🌎 "
-        let substring = "is supposed to be"
-        let rhs = " a single but relatively long line of text"
+        let substring0 = "this 🌎 "
+        let substring1 = "is supposed to be"
+        let substring2 = " a single but relatively long line of text"
 
-        let text = lhs + substring + rhs
-        let substringRange = text.range(of: substring)!
+        let text = substring0 + substring1 + substring2
+        let rangeOfSubstring1 = text.range(of: substring1)!
 
-        for location in Int.zero ..< substring.count {
-            let unmappedIndex = text.index(text.startIndex, offsetBy: location + lhs.count)
-            let expectedIndex = substring.index(substring.startIndex, offsetBy: location)
+        for location in Int.zero ..< substring1.count {
+            let unmappedIndex = text.index(text.startIndex, offsetBy: substring0.count + location)
+            let expectedIndex = substring1.index(substring1.startIndex, offsetBy: location)
 
-            XCTAssertEqual(text.transportIndex(unmappedIndex, to: substringRange, in: substring), expectedIndex)
+            XCTAssertEqual(text.transportIndex(unmappedIndex, to: rangeOfSubstring1, in: substring1), expectedIndex)
         }
     }
 
@@ -63,14 +62,13 @@ class StringRangeConversionTests: XCTestCase {
         let string = "Hello 🇮🇳 World 🌎!"
         let wordToCapture = "🌎"
 
-        let swiftRange = string.range(of: wordToCapture)!
-        let swiftWord = String(string[swiftRange])
+        let swiftWordRange = string.range(of: wordToCapture)!
+        let swiftWordText = String(string[swiftWordRange])
 
-        let foundationString = string as NSString
-        let foundationRange = string.utf16NSRange(from: swiftRange)
-        let foundationWord = foundationString.substring(with: foundationRange)
+        let nsWordRange = string.utf16NSRange(from: swiftWordRange)
+        let nsWordText = string.nsString.substring(with: nsWordRange)
 
-        XCTAssertEqual(swiftWord, wordToCapture)
-        XCTAssertEqual(foundationWord, wordToCapture)
+        XCTAssertEqual(swiftWordText, wordToCapture)
+        XCTAssertEqual(nsWordText, wordToCapture)
     }
 }

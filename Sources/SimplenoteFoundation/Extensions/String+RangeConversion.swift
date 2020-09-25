@@ -1,11 +1,17 @@
 import Foundation
 
 
-// MARK: - String Range Conversion Helpers
+// MARK: - String RangeConversion API(s0
 //
 extension String {
 
-    /// Converts a Location (expressed as Integer) into a String.Index
+    /// Returns the receiver as a Foundation String
+    ///
+    public var nsString: NSString {
+        self as NSString
+    }
+
+    /// Converts a UTF16 Location  into a String.Index
     ///
     public func indexFromLocation(_ location: Int) -> String.Index? {
         guard let unicodeLocation = utf16.index(utf16.startIndex, offsetBy: location, limitedBy: utf16.endIndex),
@@ -18,9 +24,9 @@ extension String {
 
     /// Maps a `String.Index` in the receiver's coordinates into coordinates valid for the specified Substring, in the target Range
     ///
-    public func transportIndex(_ index: String.Index, to range: Range<String.Index>, in substring: String) -> String.Index {
+    public func transportIndex(_ index: String.Index, to range: Range<String.Index>, in substring: String) -> String.Index? {
         let locationInSubstring = distance(from: startIndex, to: index) - distance(from: startIndex, to: range.lowerBound)
-        return substring.index(substring.startIndex, offsetBy: locationInSubstring)
+        return substring.index(substring.startIndex, offsetBy: locationInSubstring, limitedBy: substring.endIndex)
     }
 
     /// Converts a `Range<String.Index>` into an UTF16 NSRange.
