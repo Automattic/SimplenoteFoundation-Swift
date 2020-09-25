@@ -1,7 +1,7 @@
 import Foundation
 
 
-// MARK: - String RangeConversion API(s0
+// MARK: - String RangeConversion API(s)
 //
 extension String {
 
@@ -33,7 +33,8 @@ extension String {
     ///
     public func utf16NSRange(from range: Range<String.Index>) -> NSRange {
         guard let lowerBound = range.lowerBound.samePosition(in: utf16), let upperBound = range.upperBound.samePosition(in: utf16) else {
-            fatalError()
+            assertionFailure()
+            return NSMakeRange(NSNotFound,NSNotFound)
         }
 
         let location = utf16.distance(from: utf16.startIndex, to: lowerBound)
