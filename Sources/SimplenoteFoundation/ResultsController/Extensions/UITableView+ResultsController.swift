@@ -9,23 +9,40 @@ public struct ResultsTableAnimations {
 
     /// TableViewRowAnimation to be applied during Delete OP's.
     ///
-    public let delete: UITableView.RowAnimation = .fade
+    public let delete: UITableView.RowAnimation
 
     /// TableViewRowAnimation to be applied during Insert OP's.
     ///
-    public let insert: UITableView.RowAnimation = .fade
+    public let insert: UITableView.RowAnimation
 
     /// TableViewRowAnimation to be applied during Move OP's.
     ///
-    public let move: UITableView.RowAnimation = .fade
+    public let move: UITableView.RowAnimation
 
     /// TableViewRowAnimation to be applied during Update OP's.
     ///
-    public let update: UITableView.RowAnimation = .fade
+    public let update: UITableView.RowAnimation
 
     /// Standard ResultsTableAnimations Settings
     ///
     public static let standard = ResultsTableAnimations()
+
+    /// Constructor
+    /// - Parameters:
+    ///     - delete: delete animation
+    ///     - insert: insert animation
+    ///     - move: move animation
+    ///     - update: update animation
+    ///
+    public init(delete: UITableView.RowAnimation = .fade,
+                insert: UITableView.RowAnimation = .fade,
+                move: UITableView.RowAnimation = .fade,
+                update: UITableView.RowAnimation = .fade) {
+        self.delete = delete
+        self.insert = insert
+        self.move = move
+        self.update = update
+    }
 }
 
 
