@@ -78,7 +78,7 @@ extension NSTableView {
 
         block()
 
-        delegate =oldDelegate
+        delegate = oldDelegate
     }
 }
 
