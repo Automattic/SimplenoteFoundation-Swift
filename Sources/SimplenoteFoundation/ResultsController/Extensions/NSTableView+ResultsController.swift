@@ -37,11 +37,9 @@ extension NSTableView {
     /// - Important: While we process this batch, no `NSTableViewDelegate` events will be fired, in order to prevent potential reentrant flows
     ///
     public func performBatchChanges(objectsChangeset: ResultsObjectsChangeset) {
-        performWithoutDelegateEvents {
-            beginUpdates()
-            performChanges(objectsChangeset: objectsChangeset)
-            endUpdates()
-        }
+        beginUpdates()
+        performChanges(objectsChangeset: objectsChangeset)
+        endUpdates()
     }
 
     /// This API applies Section and Object Changesets over the receiver. Based on WWDC 2020 @ Labs Recommendations
@@ -68,17 +66,6 @@ extension NSTableView {
             let allColumnIndexes = IndexSet(integersIn: Int.zero ..< numberOfColumns)
             reloadData(forRowIndexes: objectsChangeset.updated.toIndexSet, columnIndexes: allColumnIndexes)
         }
-    }
-
-    /// Performs without triggering NSTableViewDelegate calls
-    ///
-    private func performWithoutDelegateEvents(block: () -> Void) {
-        let oldDelegate = delegate
-        delegate = nil
-
-        block()
-
-        delegate = oldDelegate
     }
 }
 
