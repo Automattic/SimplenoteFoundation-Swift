@@ -33,18 +33,21 @@ public struct ResultsTableAnimations {
 //
 extension NSTableView {
 
+    /// This API applies Section and Object Changesets over the receiver. Based on WWDC 2020 @ Labs Recommendations
+    /// - Important: While we process this batch, no `NSTableViewDelegate` events will be fired, in order to prevent potential reentrant flows
+    ///
     public func performBatchChanges(objectsChangeset: ResultsObjectsChangeset) {
-        beginUpdates()
-
-        performChanges(objectsChangeset: objectsChangeset)
-
-        endUpdates()
+        performWithoutDelegateEvents {
+            beginUpdates()
+            performChanges(objectsChangeset: objectsChangeset)
+            endUpdates()
+        }
     }
 
     /// This API applies Section and Object Changesets over the receiver. Based on WWDC 2020 @ Labs Recommendations
     /// - Note: This should be done during onDidChangeContent so that we're never in the middle of a NSManagedObjectContext.save()
     ///
-    public func performChanges(objectsChangeset: ResultsObjectsChangeset, animations: ResultsTableAnimations = .standard) {
+    private func performChanges(objectsChangeset: ResultsObjectsChangeset, animations: ResultsTableAnimations = .standard) {
         // [Step 1] Structural Changes: Delete OP(s)
         if !objectsChangeset.deleted.isEmpty {
             removeRows(at: objectsChangeset.deleted.toIndexSet, withAnimation: animations.delete)
@@ -65,6 +68,17 @@ extension NSTableView {
             let allColumnIndexes = IndexSet(integersIn: Int.zero ..< numberOfColumns)
             reloadData(forRowIndexes: objectsChangeset.updated.toIndexSet, columnIndexes: allColumnIndexes)
         }
+    }
+
+    /// Performs without triggering NSTableViewDelegate calls
+    ///
+    private func performWithoutDelegateEvents(block: () -> Void) {
+        let oldDelegate = delegate
+        delegate = nil
+
+        block()
+
+        delegate =oldDelegate
     }
 }
 
