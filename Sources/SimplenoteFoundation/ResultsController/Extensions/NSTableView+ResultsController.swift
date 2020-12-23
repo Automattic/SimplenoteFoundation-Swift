@@ -15,10 +15,6 @@ public struct ResultsTableAnimations {
     ///
     public let insert: NSTableView.AnimationOptions = .effectFade
 
-    /// TableViewRowAnimation to be applied during Move OP's.
-    ///
-    public let move: NSTableView.AnimationOptions = .effectFade
-
     /// TableViewRowAnimation to be applied during Update OP's.
     ///
     public let update: NSTableView.AnimationOptions = .effectFade
