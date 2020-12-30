@@ -63,6 +63,10 @@ public class ResultsController<T: NSManagedObject> {
         }
     }
 
+    /// Closure to be executed before the results are changed.
+    ///
+    public var onWillChangeContent: (() -> Void)?
+
     /// Closure to be executed after the results are changed.
     ///
     public var onDidChangeContent: ((_ sections: ResultsSectionsChangeset, _ objects: ResultsObjectsChangeset) -> Void)?
@@ -158,6 +162,7 @@ private extension ResultsController {
     ///
     func setupDelegateWrapper() {
         internalDelegate.onWillChangeContent = { [weak self] in
+            self?.onWillChangeContent?()
             self?.resetPendingChangesets()
         }
 
